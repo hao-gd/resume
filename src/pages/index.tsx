@@ -5,11 +5,13 @@ import Header from '@/layout/header';
 import Footer from '@/layout/footer';
 import Content from '@/components';
 import EN_US_LOCALE from '@/i18n/locales/en-US.json';
+import ZH_CN_LOCALE from '@/i18n/locales/zh-CN.json';
 import { getLanguage, registerLocale, getLocale } from '@/i18n';
 import { IntlProvider } from 'react-intl';
 import './index.less';
 
 registerLocale('en-US', EN_US_LOCALE);
+registerLocale('zh-CN', ZH_CN_LOCALE);
 
 const Page = () => {
   const [title, changeTitle] = useState('Resume Generator');
@@ -25,6 +27,7 @@ const Page = () => {
   return (
     <IntlProvider locale={lang} messages={getLocale(lang)}>
       <Helmet>
+        <html lang={lang} />
         <title>{title}</title>
       </Helmet>
       <Header />

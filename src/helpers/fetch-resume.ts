@@ -3,11 +3,14 @@ import _ from 'lodash-es';
 import type { ResumeConfig } from '@/components/types';
 import { customAssign } from './customAssign';
 
+const DEFAULT_USER = 'visiky';
+
 export function fetchResume(
   lang: string,
   branch: string,
-  user: string
+  user?: string
 ): Promise<ResumeConfig> {
+  user = user || DEFAULT_USER;
   return fetch(
     `https://raw.githubusercontent.com/${user}/${user}/${branch}/resume.json`
   )

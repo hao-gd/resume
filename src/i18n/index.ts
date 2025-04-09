@@ -1,7 +1,12 @@
 import { getLanguage } from '@/i18n';
 import type { Locale } from './types';
+import zhCN from './locales/zh-CN.json';
+import enUS from './locales/en-US.json';
 
-const LocaleMap = {};
+const LocaleMap = {
+  'zh-CN': zhCN,
+  'en-US': enUS,
+};
 
 /**
  * register a locale
@@ -22,10 +27,11 @@ import { createIntl, createIntlCache } from 'react-intl';
 // since it prevents memory leak
 const cache = createIntlCache();
 
+const currentLocale = getLanguage();
 export const intl = createIntl(
   {
-    locale: getLanguage(),
-    messages: {},
+    locale: currentLocale,
+    messages: LocaleMap[currentLocale] || zhCN,
   },
   cache
 );

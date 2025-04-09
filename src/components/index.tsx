@@ -26,17 +26,17 @@ const codec = jsonUrl('lzma');
 export const Page: React.FC = () => {
   const lang = getLanguage();
   const intl = useIntl();
-  const user = getSearchObj().user || 'visiky';
+  const DEFAULT_USER = 'visiky';
+  const query = getSearchObj();
+  const user = query.user || DEFAULT_USER;
 
   const [, mode, changeMode] = useModeSwitcher({});
-
   const originalConfig = useRef<ResumeConfig>();
-  const query = getSearchObj();
   const [config, setConfig] = useState<ResumeConfig>();
   const [loading, updateLoading] = useState<boolean>(true);
   const [theme, setTheme] = useState<ThemeConfig>({
     color: '#2f5785',
-    tagColor: '#8bc34a',
+    tagColor: '#2c662d', // 深绿色，提高对比度
   });
 
   useEffect(() => {
@@ -78,7 +78,6 @@ export const Page: React.FC = () => {
   };
 
   useEffect(() => {
-    const user = (query.user || '') as string;
     const branch = (query.branch || 'master') as string;
     const mode = query.mode;
 
@@ -122,13 +121,13 @@ export const Page: React.FC = () => {
         });
       }
     }
-  }, [lang, query.user, query.branch, query.data]);
+  }, [lang, query.user, query.branch, query.data, user]);
 
   const onConfigChange = useCallback(
     (v: Partial<ResumeConfig>) => {
       const newC = _.assign({}, config, v);
       changeConfig(newC);
-      saveToLocalStorage(query.user as string, newC);
+      saveToLocalStorage(user, newC);
     },
     [config, lang]
   );
@@ -251,15 +250,15 @@ export const Page: React.FC = () => {
                       cursor: 'pointer',
                     }}
                     onClick={() => {
-                      const user = query.user || 'visiky';
+                      const user = query.user || DEFAULT_USER;
                       window.open(`https://github.com/${user}/${user}`);
                     }}
                   >
-                    {`${query.user || 'visiky'}'s resumeInfo`}
+                    {`${query.user || DEFAULT_USER}'s resumeInfo`}
                   </span>
                   <span>
-                    {`（https://github.com/${query.user || 'visiky'}/${
-                      query.user || 'visiky'
+                    {`（https://github.com/${query.user || DEFAULT_USER}/${
+                      query.user || DEFAULT_USER
                     }/blob/${query.branch || 'master'}/resume.json）`}
                   </span>
                 </span>

@@ -17,6 +17,8 @@ export const Avatar = ({
           src={avatarSrc}
           shape={shape as any}
           size={size as any}
+          alt="用户头像"
+          aria-label="用户头像"
         />
       ) : (
         <span className="avatar-upload-tip">头像地址为空</span>

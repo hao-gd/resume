@@ -258,7 +258,7 @@ export const Drawer: React.FC<Props> = props => {
         title={modules.find(m => m.key === childrenDrawer)?.name}
         width={450}
         onClose={() => setChildrenDrawer(null)}
-        visible={!!childrenDrawer}
+        open={!!childrenDrawer}
       >
         <FormCreator
           config={contentOfModule[childrenDrawer]}
@@ -324,7 +324,7 @@ export const Drawer: React.FC<Props> = props => {
         width={480}
         closable={false}
         onClose={() => setVisible(false)}
-        visible={visible}
+        open={visible}
       >
         {type === 'module' ? (
           moduleContent

@@ -7,13 +7,15 @@ import { RESUME_INFO } from '@/data/resume';
 import { fetchResume } from './fetch-resume';
 import { intl } from '@/i18n';
 
-export const LOCAL_KEY = user => `${user ?? ''}resume-config`;
+const DEFAULT_USER = 'visiky';
+export const LOCAL_KEY = user => `${user || DEFAULT_USER}-resume-config`;
 
 export async function getConfig(
   lang: string,
   branch: string,
-  user: string
+  user?: string
 ): Promise<ResumeConfig> {
+  user = user || DEFAULT_USER;
   // 先从本地缓存获取，否则从远程拉取
   if (typeof localStorage !== 'undefined') {
     const config = localStorage.getItem(LOCAL_KEY(user));
@@ -35,14 +37,14 @@ export async function getConfig(
   });
 }
 
-export const saveToLocalStorage = _.throttle(
-  (user: string, config: ResumeConfig) => {
-    const intl = useIntl();
+export const saveToLocalStorage: (
+  user: string,
+  config: ResumeConfig
+) => void = _.throttle((user: string, config: ResumeConfig) => {
+  const intl = useIntl();
 
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(LOCAL_KEY(user), JSON.stringify(config));
-      message.success(intl.formatMessage({ id: '已缓存在本地' }), 0.65);
-    }
-  },
-  5000
-);
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(LOCAL_KEY(user), JSON.stringify(config));
+    message.success(intl.formatMessage({ id: '已缓存在本地' }), 0.65);
+  }
+}, 5000);
