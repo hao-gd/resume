@@ -32,7 +32,7 @@ const Page = () => {
       </Helmet>
       <Header />
       <Content />
-      <Footer />
+      {/* <Footer /> */}
     </IntlProvider>
   );
 };

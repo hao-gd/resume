@@ -26,9 +26,9 @@ const Header: React.FC = () => {
             <FormattedMessage id="下载 PDF" />
           </span>
         )}
-        <span className={'action-link'} onClick={gotoOnlineVersion}>
+        {/* <span className={'action-link'} onClick={gotoOnlineVersion}>
           在线版本
-        </span>
+        </span> */}
         <LangSwitcher />
       </span>
     </header>

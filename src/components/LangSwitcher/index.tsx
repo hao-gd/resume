@@ -21,11 +21,13 @@ export const LangSwitcher = ({ className }: { className?: string }) => {
       search: currentSearch,
     } = window.location;
     const hash = currentHash === '#/' ? '' : currentHash;
+    const searchParams = qs.parse(currentSearch);
     const search = qs.stringify({
-      ...qs.parse(currentSearch),
+      ...searchParams,
       lang: value,
     });
-    window.location.href = `${pathname}?${search}${hash}`;
+    const url = `${pathname}?${search}${hash || ''}`;
+    window.location.href = url;
   };
 
   const RadioContent = (

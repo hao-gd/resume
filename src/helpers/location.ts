@@ -6,6 +6,7 @@ interface QueryParams {
   mode?: string;
   template?: string;
   data?: string;
+  lang?: string;
 }
 
 export function getSearchObj(): QueryParams {
@@ -18,5 +19,6 @@ export function getSearchObj(): QueryParams {
     mode: query.mode as string,
     template: query.template as string,
     data: query.data as string,
+    lang: query.lang as string,
   };
 }

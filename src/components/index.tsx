@@ -26,7 +26,7 @@ const codec = jsonUrl('lzma');
 export const Page: React.FC = () => {
   const lang = getLanguage();
   const intl = useIntl();
-  const DEFAULT_USER = 'visiky';
+  const DEFAULT_USER = 'hao-gd';
   const query = getSearchObj();
   const user = query.user || DEFAULT_USER;
 
@@ -38,7 +38,6 @@ export const Page: React.FC = () => {
     color: '#2f5785',
     tagColor: '#2c662d', // 深绿色，提高对比度
   });
-
   useEffect(() => {
     const {
       pathname,
@@ -186,6 +185,7 @@ export const Page: React.FC = () => {
           }
           message.success(intl.formatMessage({ id: '上传配置已应用' }));
         } catch (err) {
+          console.error(err);
           message.error(intl.formatMessage({ id: '上传文件有误，请重新上传' }));
         }
       };

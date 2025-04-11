@@ -16,6 +16,8 @@ import _ from 'lodash-es';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { getDefaultTitleNameMap } from '@/data/constant';
 import type { ResumeConfig, ThemeConfig } from '../../types';
+import { Avatar } from '../../Avatar';
+
 import './index.less';
 
 type Props = {
@@ -56,7 +58,7 @@ const CardWrapper: React.FC<{
 export const Template3: React.FC<Props> = props => {
   const intl = useIntl();
   const { value, theme } = props;
-
+  console.log(value, 'value');
   /** 个人基础信息 */
   const profile = _.get(value, 'profile');
 
@@ -92,7 +94,22 @@ export const Template3: React.FC<Props> = props => {
       <div className="basic-info">
         {/* <CardWrapper title="个人信息" className="profile" color={theme.color}> */}
         <div className="profile">
-          {profile?.name && <div className="name">{profile.name}</div>}
+          {profile?.name && (
+            <div className="name">
+              {profile.name}
+
+              {/* 头像 */}
+              {!value?.avatar?.hidden && (
+                <Avatar
+                  avatarSrc={value?.avatar?.src}
+                  className="avatar"
+                  shape={value?.avatar?.shape}
+                  size={value?.avatar?.size}
+                />
+              )}
+            </div>
+          )}
+
           <div className="profile-list">
             {profile?.mobile && (
               <div className="mobile">
@@ -252,14 +269,14 @@ export const Template3: React.FC<Props> = props => {
                     />
                     {skills}
                   </span>
-                  {skill.skill_level && (
+                  {skill.skill_level ? (
                     <Rate
                       allowHalf
                       disabled
                       value={skill.skill_level / 20}
                       className="skill-rate"
                     />
-                  )}
+                  ) : null}
                 </div>
               ) : null;
             })}
